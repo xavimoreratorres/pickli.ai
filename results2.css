@@ -390,6 +390,7 @@
     display: flex;
     justify-content: center;
 	display: flex; /* Enables flexbox on the body */
+	overflow-x: hidden; /* Prevents horizontal scrolling */
 
 }
 
@@ -400,6 +401,7 @@ body {
 	margin: 0px;
 	display: flex; /* Enables flexbox on the body */
     justify-content: center; /* Centers content horizontally */
+	overflow-x: hidden; /* Prevents horizontal scrolling */
 
 }
 
