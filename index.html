@@ -827,7 +827,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const exclusionsList = exclusions.join(", ");
 
         // Build prompt dynamically based on presence of data
-        let prompt = `${showType} that are ideal for ${goal}.`;
+        let prompt = `${showType} that are ideal to ${goal}.`;
         if (selectedTags) {
             prompt += ` With a strong focus on ${selectedTags}.`;
         }
