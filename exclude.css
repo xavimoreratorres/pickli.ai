@@ -1,0 +1,162 @@
+/* Common Styles */
+.detailboxiconframe {
+    width: 24px;
+    height: 24px;
+    position: relative;
+}
+.detailboxicon {
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.excludingtagtext {
+    width: 100%;
+    outline: none;
+    font-weight: 500;
+    font-size: 14px;
+    background-color: transparent;
+    font-family: Poppins;
+    padding: 0;
+}
+
+/* Default (empty) state */
+.default-text {
+    color: #1e1e1e;
+    text-align: center;
+}
+
+/* Placeholder styling for empty editable div */
+.excludingtagtext:empty:before {
+    content: attr(data-placeholder);
+    color: #1e1e1e;
+}
+
+/* Active (user input) state */
+.excludingtagtext {
+    width: auto;
+    outline: none;
+    font-weight: 500;
+    font-size: 14px;
+    background-color: transparent;
+    font-family: Poppins;
+    padding: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 auto; /* Center the text element */
+    max-height: 30px;
+    color: #1e1e1e;
+}
+
+/* Center-align items within icon-and-text when active */
+.exclude-type-tag.active .icon-and-text {
+    justify-content: center;
+    color: #1e1e1e;
+}
+
+.icon-and-text {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    max-width: 300px;
+}
+.exclude-type-tag {
+    width: 390px;
+    border-radius: 39px;
+    background-color: #fff;
+    border: 2px solid #1e1e1e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+/* Active State Styles */
+.exclude-type-tag.active {
+    border: 2px solid #2970f5;
+    border-radius: 71px;
+    justify-content: space-between;
+}
+.icon {
+    width: 26px;
+    height: 26px;
+    object-fit: cover;
+}
+
+.excludetag2 {
+    position: relative;
+    border-radius: 42px;
+    border: 2px solid #2970f5;
+    box-sizing: border-box;
+    width: min-content;
+    max-width: 390px;
+    height: 58px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    gap: 4px;
+    text-align: left;
+    font-size: 14px;
+    color: #1e1e1e;
+    font-family: Poppins;
+    }
+
+
+#tagsContainer {
+    display: flex;
+    flex-wrap: wrap; /* Enable wrapping */
+    gap: 10px;
+    max-width: 390px; /* Limit row width */
+    margin-top: 20px; /* Space above tags */
+    justify-content: flex-start; /* Align tags to the start */
+}
+
+.excludetag2 {
+    position: relative;
+    border-radius: 42px;
+    border: 2px solid #2970f5;
+    box-sizing: border-box;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-family: Poppins;
+    color: #1e1e1e;
+    max-width: 100%;
+    overflow: hidden; /* Hide overflow content */
+    white-space: nowrap; /* Prevent text from wrapping to a new line */
+    text-overflow: ellipsis; /* Add ellipsis (...) for overflowing text */
+}
+
+.title-section-5 {
+    position: relative;
+    margin: 0px;
+    height: auto;
+    font-family: Poppins;
+    font-size: 16px;
+    }
+
+    .content-exclude {
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 12px;
+        text-align: left;
+        font-size: 16px;
+        color: #1e1e1e;
+        font-family: Poppins;
+        }
+
