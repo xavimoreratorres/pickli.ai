@@ -53,7 +53,7 @@ body {
     <div id="animation"></div>
   </div>
   <div id="message-container">
-    <div id="message">Gathering the top 15 recommendations<span class="dots">...</span></div>
+    <div id="message">Gathering the top recommendations<span class="dots">...</span></div>
   </div>
 
   <script>
@@ -75,10 +75,10 @@ body {
       });
     
       const messages = [
-        { text: "Gathering the top 15 recommendations", start: 0, end: 5 },
+        { text: "Gathering top recommendations", start: 0, end: 5 },
         { text: "Checking for your platform(s) in your location", start: 5, end: 10 },
-        { text: "Scoring the results and giving you the best 5", start: 10, end: 15 },
-        { text: "Taking longer than expected", start: 30, end: 40 }
+        { text: "Scoring the results and giving you the best", start: 10, end: 15 },
+        { text: "Almost there, Hang tight!", start: 30, end: 60 }
       ];
     
       const messageElement = document.getElementById('message');
@@ -97,7 +97,7 @@ body {
         
         dots = dots.length < 3 ? dots + "." : "";
     
-        if (elapsedSeconds >= 40) {
+        if (elapsedSeconds >= 60) {
           clearInterval(messageInterval);
           window.location.href = "/error.html";
         }
