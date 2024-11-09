@@ -366,7 +366,7 @@ function initEventListeners() {
 
   // ## GOAL ##
 const goalOptions = document.querySelectorAll(".experience-option");
-const dataIdMapping = { "🌙  Relax": "relax", "🍿  Immerse": "captivate", "💤  Sleep": "sleep" };
+const dataIdMapping = { "🌙  Unwind": "unwind", "🍿  Immerse": "immerse", "💤  Sleep": "sleep" };
 
 if (goalOptions.length > 0) {
     // Remove default selection
@@ -473,7 +473,7 @@ function setupGoalBehavior() {
             clearAttributes(sleepTags);
 
             // Show/hide sections based on the goal's data-id and reapply tag behavior
-            if (goalId === "relax") {
+            if (goalId === "unwind") {
                 relaxTags.style.display = "block";
                 captivateTags.style.display = "none";
                 sleepTags.style.display = "none";
