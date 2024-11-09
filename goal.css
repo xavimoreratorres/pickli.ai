@@ -1,0 +1,109 @@
+.section-heading-2 {
+  	position: relative;
+  	font-size: 16px;
+  	font-weight: 600;
+}
+.radio-button-unchecked-icon {
+  	width: 24px;
+  	position: relative;
+  	height: 24px;
+}
+.option-title {
+  	align-self: stretch;
+  	position: relative;
+  	font-weight: 500;
+  	white-space: pre-wrap;
+}
+.option-description {
+  	width: 301px;
+  	position: relative;
+  	font-size: 12px;
+  	font-weight: 500;
+  	color: #6b6b6b;
+  	display: flex;
+  	align-items: center;
+}
+.text {
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	gap: 2px;
+}
+.text-and-radio-button {
+  	display: flex;
+  	flex-direction: row;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	gap: 12px;
+}
+.experience-option {
+    border-radius: 13px;
+    border: 2px solid #1e1e1e;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 16px;
+    cursor: pointer;
+    font-family: Poppins, sans-serif;
+	width: 392px;
+}
+
+.experience-option.active {
+    position: relative;
+    border-radius: 13px;
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 16px;
+    text-align: left;
+    font-size: 14px;
+    color: #111;
+    font-family: Poppins, sans-serif;
+    background-color: white; /* Background for the element */
+}
+
+.experience-option.active::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 13px;
+    padding: 2px;
+    background: linear-gradient(270deg, #5822b4, #386bf6);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+}
+
+.goal-format-option {
+  	display: flex;
+  	flex-direction: row;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	color: #111;
+	width: 392px;
+}
+.content-idealfor {
+  	position: relative;
+  	width: 100%;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	gap: 12px;
+  	text-align: left;
+  	font-size: 14px;
+  	color: #1e1e1e;
+  	font-family: Poppins;
+}
+
