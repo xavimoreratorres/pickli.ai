@@ -82,10 +82,10 @@
       });
 
       const messages = [
-        { text: "Gathering top recommendations", start: 0, end: 5 },
-        { text: "Checking for your platform(s) in your location", start: 5, end: 10 },
-        { text: "Scoring the results and giving you the best", start: 10, end: 15 },
-        { text: "Almost there, Hang tight!", start: 30, end: 60 }
+        { text: "Gathering top recommendations", start: 0, end: 10 },
+        { text: "Checking for your platform(s) in your location", start: 10, end: 20 },
+        { text: "Scoring the results and giving you the best", start: 20, end: 30 },
+        { text: "Almost there, Hang tight!", start: 30, end: 90 }
       ];
 
       const messageElement = document.getElementById('message');
@@ -104,7 +104,7 @@
         
         dots = dots.length < 3 ? dots + "." : "";
 
-        if (elapsedSeconds >= 60) {
+        if (elapsedSeconds >= 90) {
           clearInterval(messageInterval);
           window.location.href = "/error.html";
         }
