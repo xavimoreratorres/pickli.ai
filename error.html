@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oops! Something Went Wrong</title>
+  <style>
+    html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 440px; /* Limit body width to 440px */
+    width: 100%;
+    height: auto; /* Adjust height based on content */
+    background-color: #fff;
+    font-family: 'Poppins', sans-serif;
+    color: #1a00ff;
+    text-align: center;
+    padding: 0 1em;
+    box-sizing: border-box;
+}
+    h1 {
+      font-size: 2em;
+      margin-bottom: 0.5em;
+    }
+    #greeting {
+      font-size: 1.5em;
+      margin-bottom: 0.5em;
+    }
+    p {
+      font-size: 1em;
+      margin-bottom: 1em;
+    }
+    #error-message {
+      color: red;
+      font-size: 1.2em;
+      margin-top: 1em;
+      font-weight: bold;
+    }
+    img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      margin-bottom: 1em;
+    }
+    .button {
+      display: inline-block;
+      padding: 0.8em 1.5em;
+      font-size: 1em;
+      color: #fff;
+      background-color: #1a00ff;
+      text-decoration: none;
+      border-radius: 5px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease;
+    }
+    .button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="greeting">Hello, my friend!</h1>
+  <p>Looks like we hit a snag! But don't worry, this doesn't have to be awkward... doesn't it?</p>
+  <img src="errorpit.png" alt="Silly dog face" />
+  <div id="error-message"></div>
+  <a href="/" class="button">Return to Main Page</a>
+
+  <script>
+    // Get the client’s local time
+    const now = new Date();
+    const hours = now.getHours();
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    // Set the greeting based on the time
+    const greetingElement = document.getElementById('greeting');
+    if (hours < 12) {
+      greetingElement.textContent = "Good morning, my friend!";
+    } else if (hours < 18) {
+      greetingElement.textContent = "Good afternoon, my friend!";
+    } else {
+      greetingElement.textContent = "Good evening, my friend!";
+    }
+
+    // Retrieve and display the error message
+    const errorMessage = localStorage.getItem('errorMessage');
+    if (errorMessage) {
+      document.getElementById('error-message').textContent = errorMessage;
+      // Clear the error message from localStorage after displaying
+      localStorage.removeItem('errorMessage');
+    }
+
+    // Optional: Display the user's timezone in the console (or you could show it on the page)
+    console.log("User's timezone:", timezone, "User's time:", now, hours);
+  </script>
+</body>
+</html>
