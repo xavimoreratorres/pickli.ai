@@ -827,15 +827,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const exclusionsList = exclusions.join(", ");
 
         // Build prompt dynamically based on presence of data
-        let prompt = `${showType} that are ideal to ${goal}.`;
+        let prompt = `I am looking for a set of ${showType} that suit my mood of ${goal}.`;
         if (selectedTags) {
-            prompt += ` With a strong focus on ${selectedTags}.`;
+            prompt += ` I want to explore something that fits a scene with ${selectedTags}.`;
         }
         if (touch) {
-            prompt += ` Taking into consideration my personal touch: ${touch}.`;
+            prompt += `Here is a personal touch to further customize the experience: ${touch}.`;
         }
         if (exclusionsList) {
-            prompt += ` Important! Make sure it is Excluding ${exclusionsList}.`;
+            prompt += ` Important! Additionally, I’d like to avoid ${exclusionsList}.`;
         }
         jsonData.prompt = prompt;
 
