@@ -1,0 +1,94 @@
+.title-section-3 {
+    position: relative;
+    font-size: 16px;
+}
+.tag {
+    position: relative;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Poppins, sans-serif;
+    color: #1e1e1e;
+    text-align: left;
+}
+
+.tag.active {
+    background: linear-gradient(270deg, #5822b4, #386bf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.tag-1 {
+    position: relative;
+    border-radius: 42px;
+    background-color: #fff;
+    border: 2px solid #1e1e1e;
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    text-align: left;
+    font-size: 14px;
+    color: #1e1e1e;
+    font-family: Poppins;
+}
+
+/* Active style */
+.tag-1.active {
+    position: relative;
+    border-radius: 42px;
+    background-color: #fff;
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    text-align: left;
+    font-size: 14px;
+    font-family: Poppins, sans-serif;
+    color: #111;
+}
+
+.tag-1.active::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 42px;
+    padding: 2px;
+    background: linear-gradient(270deg, #5822b4, #386bf6);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+}
+
+
+.tags-row-1 {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 12px;
+}
+.content-tags-details {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 12px;
+    text-align: left;
+    font-size: 14px;
+    color: #1e1e1e;
+    font-family: Poppins;
+}

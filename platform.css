@@ -1,0 +1,241 @@
+.filter-by-platform {
+    position: relative;
+    font-weight: 600;
+}
+.label {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 6px 0px 8px;
+}
+.excludingtitle {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    text-align: left;
+    font-size: 16px;
+    color: #1e1e1e;
+    font-family: Poppins;
+}
+.platformtitle {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0px 0px 10px;
+}
+
+.platformshadowsliderright {
+    width: 17px;
+    position: absolute;
+    margin: 0 !important;
+    top: calc(40% - 0px);
+    right: 0px;
+    background: linear-gradient(270deg, #fff 10%, rgba(255, 255, 255, 0.75) 32.5%, rgba(255, 255, 255, 0.63) 43.75%, rgba(255, 255, 255, 0.5) 55%, rgba(255, 255, 255, 0));
+    height: 70px;
+    z-index: 3;
+    border-radius: 10px;
+}
+.platformshadowsliderleft {
+    width: 17px;
+    position: absolute;
+    margin: 0 !important;
+    top: calc(40% - 0px);
+    left: 0px;
+    background: linear-gradient(270deg, rgba(255, 255, 255, 0) 10%, rgba(255, 255, 255, 0.5) 32.5%, rgba(255, 255, 255, 0.63) 43.75%, rgba(255, 255, 255, 0.75) 55%, #fff);
+    height: 70px;
+    z-index: 2;
+    border-radius: 10px;
+}
+.netflix-logo-icon-1 {
+    width: 18px;
+    position: relative;
+    height: 30px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.amazon-prime-video-1-1-icon {
+    width: 81.3px;
+    position: relative;
+    height: 25px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.platformlogo {
+
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    transform: scale(0.5); /* Scale down to 80% */
+    transform-origin: center; /* Keep scaling centered */
+}
+.platformoptiontag {
+    border-radius: 100px;
+    background-color: #fff;
+    height: 45px;
+    width: 125px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0px;
+    box-sizing: border-box;
+    border: 2px solid #1e1e1e;
+    position: relative; /* For positioning the pseudo-element */
+    overflow: hidden; /* Ensures content stays within the rounded border */
+}
+
+.platformoptiontag.active {
+    border: none; /* Remove the default border */
+}
+
+.platformoptiontag.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit; /* Matches parent’s border radius */
+    padding: 2px; /* Thickness of the border */
+    background: linear-gradient(270deg, #5822b4, #386bf6); /* Gradient color */
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none; /* Prevents interaction with the pseudo-element */
+}
+.vector-icon {
+    position: absolute;
+    height: 92%;
+    width: 51.54%;
+    top: 8.13%;
+    right: -0.16%;
+    bottom: -0.13%;
+    left: 48.62%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+}
+.group-icon {
+    position: absolute;
+    height: 100%;
+    width: 38.72%;
+    top: 0%;
+    right: 61.28%;
+    bottom: 0%;
+    left: 0%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 100%;
+}
+.apple-tv-1 {
+    width: 42.1px;
+    position: relative;
+    height: 20px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.hbo-max-logo-1-1-icon {
+    width: 73px;
+    position: relative;
+    height: 14px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.disney-1-1-icon {
+    width: 62.6px;
+    position: relative;
+    height: 34px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.hulu-1-icon {
+    width: 50px;
+    position: relative;
+    height: 16.5px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.crunchyroll-1-1-icon {
+    width: 70px;
+    position: relative;
+    height: 13px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.platformoptionsrow1 {
+    overflow-x: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0px 0px;
+    gap: 12px;
+    z-index: 2;
+    transition: opacity 0.3s ease;
+    opacity: 1; /* Ensure opacity starts at 1 */
+}
+.platformoptions {
+    align-self: stretch;
+    border-radius: 12px;
+    background: white;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 14px 0px;
+    position: relative;
+    gap: 16px;
+}
+.tdesignlocation-icon {
+    width: 15px;
+    position: relative;
+    height: 15px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.datacountry {
+    position: relative;
+    text-decoration: underline;
+    font-weight: 500;
+}
+.location {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4px;
+}
+.platformcontent {
+    align-self: stretch;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    font-size: 12px;
+    color: #1c1c1d;
+}
+.q6 {
+    width: 392px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    font-size: 16px;
+    color: #121212;
+    font-family: Poppins;
+}
+

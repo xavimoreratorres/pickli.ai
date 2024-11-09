@@ -1,0 +1,83 @@
+.feel {
+    background: linear-gradient(270deg, #5822b4, #386bf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.quick-mode-header-container1 {
+    width: 100%;
+}
+.quick-mode-header-container {
+    width: 380px;
+    position: relative;
+    line-height: 110%;
+    display: flex;
+    align-items: flex-end;
+    height: 92px;
+    flex-shrink: 0;
+}
+.sparks-icon {
+    width: 20px;
+    position: relative;
+    height: 20px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.generatebuttontext {
+    position: relative;
+    font-weight: 600;
+}
+.cta-label-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2px;
+}
+.button {
+    width: 392px;
+    border-radius: 7px;
+    background-color: #1a00ff;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 121px;
+    box-sizing: border-box;
+}
+.button-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 8px 0px 24px;
+}
+.content {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+}
+.quickmode {
+    width: 100%;
+    position: relative;
+    background-color: #fff;
+    height: 1437px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 72px 24px;
+    box-sizing: border-box;
+    gap: 24px;
+    text-align: left;
+    font-size: 40px;
+    color: #1e1e1e;
+    font-family: Poppins;
+}
+

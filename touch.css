@@ -1,0 +1,157 @@
+.touch {
+    background: linear-gradient(270deg, #5822b4, #386bf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.your-personal-touch1 {
+    position: relative;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: Poppins;
+    text-align: left;
+    color: #1e1e1e;
+    margin: 2px;
+    text-align: left;
+}
+.your-personal-touch {
+    margin: 0px;
+    height: auto;
+}
+.more-details-mean {
+    width: 402px;
+    position: relative;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: Poppins;
+    color: #6b6b6b;
+    text-align: left;
+    display: inline-block;
+    margin: 0;
+}
+.detailboxtitletext {
+    align-self: stretch;
+    position: relative;
+    text-align: left;
+}
+.detailboxtitle {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 12px;
+}
+.detailboxiconframe {
+    align-self: stretch;
+    width: 24px;
+    position: relative;
+    max-height: 100%;
+}
+.detailboxicon {
+    height: 24px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.detailboxseparator-icon {
+    width: 1px;
+    position: relative;
+    max-width: 100%;
+    overflow: hidden;
+    height: 27px;
+}
+.detailboxrightpart {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+}
+.detailboxtext {
+    width: 100%;
+    min-height: 16px;
+    max-height: 150px; /* You can increase this if needed */
+    border: none;
+    padding: 0px;
+    line-height: 150%;
+    resize: none; /* Prevent manual resizing */
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    overflow-y: auto; /* Let it scroll vertically once the max height is reached */
+    color: transparent; /* Set text color to transparent */
+    background: linear-gradient(270deg, #5822b4, #386bf6);
+    -webkit-background-clip: text; /* Clip the background to the text */
+    background-clip: text; /* Ensure compatibility with other browsers */
+    box-sizing: border-box; /* Ensure padding is included in width/height */
+    height: 20px; /* Automatically expand with content */
+}
+
+.detailboxtext:focus {
+    outline: none;
+}
+
+.detailboxtext::placeholder {
+    font-size: 12px;
+    line-height: 17px;
+    font-weight: 500;
+    font-family: Poppins;
+    color: #1e1e1e;
+    text-align: left;;
+}
+.detailboxtextcontainer {
+    display: flex;
+    flex-direction: column; /* Ensure vertical stacking */
+    flex-grow: 1; /* Allow the container to grow */
+    align-items: stretch; /* Ensure the textarea fills the container */
+    padding: 0px 0px 0px 8px;
+}
+.detailboxframe {
+    width: 380px;
+    border-radius: 9px;
+    background-color: #fff;
+    border: 2px solid #1e1e1e;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 14px 13px;
+    gap: 5px;
+    font-size: 14px;
+    min-height: 70px;
+    position: relative; /* For pseudo-element positioning */
+    overflow: hidden; /* Ensures inner content stays within the frame */
+}
+
+/* Active style */
+.detailboxframe.active {
+    border: none; /* Remove default border to avoid overlap */
+    padding: 14px 13px; /* Adjust padding to accommodate pseudo-element overlay */
+}
+
+.detailboxframe.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit; /* Ensure the pseudo-element matches the parent's border-radius */
+    padding: 2px; /* Thickness of the gradient border */
+    background: linear-gradient(270deg, #5822b4, #386bf6); /* Apply gradient */
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none; /* Ensure the overlay doesn’t interfere with interactions */
+}
+
+.detailbox {
+gap: 12px;
+
+
+}

@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap">
+    <style>
+      /* Loading overlay styling */
+      #loading-overlay {
+    width: 440px;
+    height: 100vh; /* Sets the height to full viewport height */
+    position: fixed;
+    top: 0; /* Aligns it to the top of the viewport */
+    left: 50%;
+    transform: translateX(-50%); /* Centers the overlay horizontally */
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+    display: flex;
+    justify-content: center; /* Centers content horizontally within the overlay */
+    z-index: 9999; /* Ensure overlay stays on top */
+}
+      #main-content {
+        visibility: hidden; /* Hide main content initially */
+      }
+    </style>
+</head>
+<body>
+    
+   <!-- Loading Overlay -->
+<div id="loading-overlay" class="splash">
+  <div class="picklilogobg"></div>
+  <img class="picklilogo-icon" alt="Pickli Logo" src="./svg/picklilogo.svg">
+</div>
+
+    <!-- Main Content -->
+    <div id="main-content" class="quickmode">
+        <b class="quick-mode-header-container">
+            <span class="quick-mode-header-container1">
+                <span>What do you </span>
+                <span class="feel">feel</span>
+                <span> like watching?</span>
+            </span>
+        </b>
+        <div class="content">
+            
+            <!-- Your dynamic div containers for each section -->
+            <div id="showtype"></div>
+            <div id="goal"></div>
+            <div id="captivatetags"></div>
+            <div id="relaxtags"></div>
+            <div id="sleeptags"></div>
+            <div id="touch"></div>
+            <div id="exclude"></div>
+            <div id="platform"></div>
+            
+            <div class="button-frame">
+                <div class="button">
+                    <div class="cta-label-icon">
+                        <img class="sparks-icon" alt="" src="./svg/sparksicon.svg">
+                        <div class="generatebuttontext">Find my picks</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <script>
+
+// Minimum display time for the loading animation (in milliseconds)
+const MIN_DISPLAY_TIME = 3000; // 3 seconds
+
+// Flag to check if the page has fully loaded
+let pageLoaded = false;
+
+// Hide the loading overlay and show main content
+function hideLoadingOverlay() {
+  document.getElementById("loading-overlay").style.display = "none";
+  document.getElementById("main-content").style.visibility = "visible";
+  window.scrollTo(0, 0); // Scroll to the top
+}
+
+// Wait for the page to fully load
+window.addEventListener("load", function() {
+  pageLoaded = true; // Set the page loaded flag to true
+
+  // Check if the minimum display time has already passed
+  if (performance.now() >= MIN_DISPLAY_TIME) {
+    hideLoadingOverlay();
+  }
+});
+
+// Set a minimum display timer for the loading animation
+setTimeout(() => {
+  if (pageLoaded) {
+    hideLoadingOverlay();
+  }
+}, MIN_DISPLAY_TIME);
+
+    // Array of HTML files and their corresponding div IDs
+    const pages = [
+      { file: "showtype.html", id: "showtype" },
+      { file: "goal.html", id: "goal" },
+      { file: "captivatetags.html", id: "captivatetags" },
+      { file: "relaxtags.html", id: "relaxtags" },
+      { file: "sleeptags.html", id: "sleeptags" },
+      { file: "touch.html", id: "touch" },
+      { file: "exclude.html", id: "exclude" },
+      { file: "platform.html", id: "platform" },
+    ];
+  
+    // Updated loadPagesSequentially function
+    // Updated loadPagesSequentially function to handle both platform and exclude sections
+    function loadPagesSequentially(index = 0) {
+  if (index >= pages.length) {
+    initEventListeners(); // Initialize main events after all pages are loaded
+    return;
+  }
+
+  const { file, id } = pages[index];
+
+  fetch(file)
+    .then(response => {
+      if (!response.ok) throw new Error(`Failed to load ${file}`);
+      return response.text();
+    })
+    .then(content => {
+      document.getElementById(id).innerHTML = content;
+
+      // Initialize platform-specific events once platform.html is loaded
+      if (file === 'platform.html') {
+        initPlatformEvents();
+      }
+
+      // Initialize exclude-specific events once exclude.html is loaded
+      if (file === 'exclude.html') {
+        initExcludeEvents();
+      }
+
+      loadPagesSequentially(index + 1); // Load the next page after the current one
+    })
+    .catch(error => console.error(error));
+}
+
+// Platform-specific event initialization for dynamically loaded .datacountry
+function initPlatformEvents() {
+    const datacountryDiv = document.querySelector('.datacountry');
+    if (!datacountryDiv) {
+        console.error('Element .datacountry not found in platform.html.');
+        return;
+    }
+
+    const locationFunctionUrl = 'https://us-central1-double-voice-439307-j8.cloudfunctions.net/getlocation';
+
+    // Fetch IP location and update datacountry div
+    fetch(locationFunctionUrl)
+        .then(response => response.json())
+        .then(data => {
+            const countryName = data.country || 'United States';
+
+            // Fetch countryCode and platform data based on countryName
+            return fetch('https://us-central1-double-voice-439307-j8.cloudfunctions.net/getcountryplatform', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ countryName })
+            });
+        })
+        .then(response => response.json())
+        .then(platformData => {
+            const countryCode = platformData.countryCode.toUpperCase();
+            datacountryDiv.textContent = countryCode;
+            datacountryDiv.setAttribute('data-id', countryCode);
+
+            // Render platform options based on platform data
+            const services = platformData.services || [];
+            renderPlatformOptions(services);
+        })
+        .catch(error => {
+            console.error('Error fetching country or platform data:', error);
+            datacountryDiv.textContent = 'No internet - Unable to get your location';
+            datacountryDiv.setAttribute('data-id', 'US');
+        });
+
+    // Allow user to edit the content of the datacountry div when clicked
+    datacountryDiv.addEventListener('click', function() {
+        this.setAttribute('contentEditable', true); // Make the div editable
+        this.focus(); // Focus the div so the user can start editing
+    });
+
+    // Enforce a character limit of 20 characters on the datacountry div
+    datacountryDiv.addEventListener('input', function() {
+        if (this.textContent.length > 20) {
+            this.textContent = this.textContent.substring(0, 20); // Trim to 20 characters
+        }
+    });
+
+    // Update platform options when the user clicks away (blur)
+    datacountryDiv.addEventListener('blur', function() {
+        this.removeAttribute('contentEditable'); // Disable editing when focus is lost
+
+        const countryName = this.textContent.trim();
+        
+        fetch('https://us-central1-double-voice-439307-j8.cloudfunctions.net/getcountryplatform', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ countryName })
+        })
+        .then(response => response.json())
+        .then(platformData => {
+            const countryCode = platformData.countryCode.toUpperCase();
+            datacountryDiv.textContent = countryCode;
+            datacountryDiv.setAttribute('data-id', countryCode);
+
+            // Render updated platform options based on new country
+            const services = platformData.services || [];
+            renderPlatformOptions(services);
+        })
+        .catch(error => {
+            console.error('Error fetching updated platform data:', error);
+        });
+    });
+}
+
+
+// Exclude-specific event initialization for dynamically loaded exclude section
+function initExcludeEvents() {
+  const input = document.getElementById('textInput');
+  const container = document.getElementById('excludeTypeTag');
+  const addIcon = document.getElementById('addIcon');
+  const tagsContainer = document.getElementById('tagsContainer');
+  const MAX_LENGTH = 200;
+  const MAX_TAGS = 3;
+
+  if (!input || !container || !addIcon || !tagsContainer) {
+    console.error("Exclude elements not found. Ensure 'textInput', 'excludeTypeTag', 'addIcon', and 'tagsContainer' exist in exclude.html.");
+    return;
+  }
+
+  function updateUI() {
+    if (input.textContent.trim().length > 0 && tagsContainer.children.length < MAX_TAGS) {
+      container.classList.add('active');
+      addIcon.style.display = 'block';
+      input.classList.remove('default-text');
+      input.classList.add('active-text');
+    } else {
+      container.classList.remove('active');
+      addIcon.style.display = 'none';
+      input.classList.remove('active-text');
+      input.classList.add('default-text');
+    }
+  }
+
+  function checkMaxTags() {
+    if (tagsContainer.children.length >= MAX_TAGS) {
+      addIcon.style.display = 'none';
+    } else if (input.textContent.trim().length > 0) {
+      addIcon.style.display = 'block';
+    }
+  }
+
+  function createTag(text) {
+    const tag = document.createElement('div');
+    tag.classList.add('excludetag2');
+    tag.setAttribute('data-category', 'exclusion');
+    tag.setAttribute('data-id', `${text}`);
+
+    const tagText = document.createElement('div');
+    tagText.classList.add('excludetag21');
+    tagText.textContent = text;
+
+    const closeIcon = document.createElement('img');
+    closeIcon.classList.add('close-icon');
+    closeIcon.src = './svg/Close.svg';
+    closeIcon.alt = 'Close';
+
+    closeIcon.addEventListener('click', () => {
+      tag.remove();
+      checkMaxTags();
+      updateUI();
+    });
+
+    tag.appendChild(tagText);
+    tag.appendChild(closeIcon);
+    tagsContainer.appendChild(tag);
+    checkMaxTags();
+  }
+
+  input.addEventListener('beforeinput', function(event) {
+    if (input.textContent.length >= MAX_LENGTH && event.inputType !== 'deleteContentBackward') {
+      event.preventDefault();
+    }
+  });
+
+  input.addEventListener('input', function() {
+    if (input.textContent.length > MAX_LENGTH) {
+      input.textContent = input.textContent.substring(0, MAX_LENGTH);
+
+      const range = document.createRange();
+      const sel = window.getSelection();
+      range.selectNodeContents(input);
+      range.collapse(false);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+    updateUI();
+  });
+
+  addIcon.addEventListener('click', function() {
+    const text = input.textContent.trim();
+    if (text.length > 0 && tagsContainer.children.length < MAX_TAGS) {
+      createTag(text);
+      input.textContent = '';
+      updateUI();
+    }
+  });
+
+  input.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      const text = input.textContent.trim();
+      if (text.length > 0 && tagsContainer.children.length < MAX_TAGS) {
+        createTag(text);
+        input.textContent = '';
+        updateUI();
+      }
+    }
+  });
+
+  updateUI();
+}
+
+    // Start loading pages
+    // Start loading pages
+loadPagesSequentially();
+
+// Define event listeners after all pages are loaded
+function initEventListeners() {
+
+  // ## SHOWTYPE ##
+  const formatOptions = document.querySelectorAll('.format-option');
+  if (formatOptions.length > 0) {
+    const dataIdMapping = { "Movie": "movie", "TV show": "series" };
+
+    formatOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        formatOptions.forEach(opt => {
+          opt.classList.remove('clicked');
+          opt.removeAttribute('data-id');
+          const tagText = opt.querySelector('.formattagtext');
+          if (tagText) tagText.classList.remove('clicked');
+        });
+
+        option.classList.add('clicked');
+        const text = option.querySelector('.formattagtext');
+        if (text) text.classList.add('clicked');
+        
+        if (dataIdMapping[text?.innerText]) {
+          option.setAttribute('data-category', 'showtype');
+          option.setAttribute('data-id', dataIdMapping[text.innerText]);
+        }
+      });
+    });
+  }
+
+  // ## GOAL ##
+const goalOptions = document.querySelectorAll(".experience-option");
+const dataIdMapping = { "🌙  Relax": "relax", "🍿  Immerse": "captivate", "💤  Sleep": "sleep" };
+
+if (goalOptions.length > 0) {
+    // Remove default selection
+    goalOptions.forEach(option => {
+        const optionTitle = option.querySelector(".option-title");
+        const icon = option.querySelector(".radio-button-unchecked-icon");
+        
+        option.classList.remove("active");
+        option.removeAttribute("data-id");
+        if (icon) icon.src = "./svg/radio_button_unchecked.svg";
+
+        option.addEventListener("click", () => {
+            // Deselect all other goals
+            goalOptions.forEach(opt => {
+                opt.classList.remove("active");
+                opt.removeAttribute("data-id");
+                const optIcon = opt.querySelector(".radio-button-unchecked-icon");
+                if (optIcon) optIcon.src = "./svg/radio_button_unchecked.svg";
+            });
+
+            // Select clicked goal
+            option.classList.add("active");
+            if (icon) icon.src = "./svg/radio_button_checked.svg";
+
+            const titleText = optionTitle ? optionTitle.textContent.trim() : '';
+            if (titleText) {
+                option.setAttribute("data-id", dataIdMapping[titleText] || titleText);
+                option.setAttribute("data-category", "goal");
+            }
+        });
+    });
+
+    // Call setupGoalBehavior to handle showing/hiding tag sections
+    setupGoalBehavior();  // <--- ADD THIS LINE HERE
+}
+
+// ## CAPTIVATETAGS, RELAXTAGS, SLEEPTAGS ##
+function setupTagBehavior(category, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) {
+        console.error(`Container with ID ${containerId} not found.`);
+        return;
+    }
+
+    const tagElements = container.querySelectorAll(".tag-1");
+    if (tagElements.length > 0) {
+        tagElements.forEach(tagElement => {
+            // Remove all existing listeners by cloning the element
+            const newTagElement = tagElement.cloneNode(true);
+            tagElement.replaceWith(newTagElement); // Replace with the clone without listeners
+
+            const tag = newTagElement.querySelector(".tag");
+            const tagText = tag ? tag.textContent : '';
+
+            newTagElement.setAttribute("data-category", category);
+
+            newTagElement.addEventListener("click", () => {
+                newTagElement.classList.toggle("active");
+                if (tag) tag.classList.toggle("active");
+
+                if (newTagElement.classList.contains("active")) {
+                    newTagElement.setAttribute("data-id", tagText);
+                } else {
+                    newTagElement.removeAttribute("data-id");
+                }
+            });
+        });
+    }
+}
+
+// Define setupGoalBehavior function AFTER initEventListeners
+function setupGoalBehavior() {
+    const goalOptions = document.querySelectorAll(".experience-option");
+    const captivateTags = document.getElementById("captivatetags");
+    const relaxTags = document.getElementById("relaxtags");
+    const sleepTags = document.getElementById("sleeptags");
+
+    if (!captivateTags || !relaxTags || !sleepTags) {
+        console.error("One or more tag sections (captivatetags, relaxtags, sleeptags) are missing.");
+        return;
+    }
+
+    // Hide all tag sections by default
+    captivateTags.style.display = "none";
+    relaxTags.style.display = "none";
+    sleepTags.style.display = "none";
+
+    goalOptions.forEach(option => {
+        option.addEventListener("click", () => {
+            const goalId = option.getAttribute("data-id");
+
+            // Helper function to clear data-id and active class for hidden sections
+            function clearAttributes(section) {
+                const activeTags = section.querySelectorAll(".active");
+                activeTags.forEach(tag => {
+                    tag.classList.remove("active");
+                    tag.removeAttribute("data-id");
+                });
+            }
+
+            // Clear attributes for all sections before showing the new one
+            clearAttributes(captivateTags);
+            clearAttributes(relaxTags);
+            clearAttributes(sleepTags);
+
+            // Show/hide sections based on the goal's data-id and reapply tag behavior
+            if (goalId === "relax") {
+                relaxTags.style.display = "block";
+                captivateTags.style.display = "none";
+                sleepTags.style.display = "none";
+                setupTagBehavior("relax.tags", "relaxtags"); // Reapply for relax tags
+            } else if (goalId === "sleep") {
+                sleepTags.style.display = "block";
+                captivateTags.style.display = "none";
+                relaxTags.style.display = "none";
+                setupTagBehavior("sleep.tags", "sleeptags"); // Reapply for sleep tags
+            } else if (goalId === "captivate") {
+                captivateTags.style.display = "block";
+                relaxTags.style.display = "none";
+                sleepTags.style.display = "none";
+                setupTagBehavior("captivate.tags", "captivatetags"); // Reapply for captivate tags
+            }
+        });
+    });
+}
+
+
+
+
+
+
+
+      // ## TOUCH ##
+      const detailboxText = document.querySelector('.detailboxtext');
+      if (detailboxText) {
+        const iconFrame = document.querySelector('.detailboxiconframe');
+        const separatorIcon = document.querySelector('.detailboxseparator-icon');
+        const detailboxFrame = document.querySelector('.detailboxframe');
+        const MAX_LENGTH = 186;
+
+        detailboxText.setAttribute('data-category', 'touch');
+
+        function updateUI() {
+          if (detailboxText.value.trim().length > 0 || document.activeElement === detailboxText) {
+            if (iconFrame) iconFrame.src = './svg/detailboxiconframecolor.svg';
+            if (separatorIcon) separatorIcon.src = './svg/detailboxseparatoractive.svg';
+            if (detailboxFrame) detailboxFrame.classList.add('active');
+            detailboxText.setAttribute('data-id', detailboxText.value.trim());
+          } else {
+            if (iconFrame) iconFrame.src = './svg/detailboxiconframe.svg';
+            if (separatorIcon) separatorIcon.src = './svg/detailboxseparator.svg';
+            if (detailboxFrame) detailboxFrame.classList.remove('active');
+            detailboxText.removeAttribute('data-id');
+          }
+        }
+
+        detailboxText.addEventListener('input', () => {
+          detailboxText.value = detailboxText.value.slice(0, MAX_LENGTH);
+          detailboxText.style.height = detailboxText.scrollHeight + 'px';
+          updateUI();
+        });
+
+        detailboxText.addEventListener('focus', updateUI);
+        detailboxText.addEventListener('blur', () => {
+          if (!detailboxText.value.trim()) {
+            detailboxText.placeholder = 'Eg: A 90s mystery in Barcelona, a feel-good romance, or an inspiring true story';
+          }
+          updateUI();
+        });
+
+        detailboxText.style.height = detailboxText.scrollHeight + 'px';
+        updateUI();
+      }
+
+  // ## EXCLUDE ##
+      document.addEventListener("DOMContentLoaded", function() {
+        const input = document.getElementById('textInput');
+        const container = document.getElementById('excludeTypeTag');
+        const addIcon = document.getElementById('addIcon');
+        const tagsContainer = document.getElementById('tagsContainer');
+        const MAX_LENGTH = 200;
+        const MAX_TAGS = 3;
+
+        function updateUI() {
+          if (input.textContent.trim().length > 0 && tagsContainer.children.length < MAX_TAGS) {
+            container.classList.add('active');
+            addIcon.style.display = 'block';
+            input.classList.remove('default-text');
+            input.classList.add('active-text');
+          } else {
+            container.classList.remove('active');
+            addIcon.style.display = 'none';
+            input.classList.remove('active-text');
+            input.classList.add('default-text');
+          }
+        }
+
+        function checkMaxTags() {
+          if (tagsContainer.children.length >= MAX_TAGS) {
+            addIcon.style.display = 'none';
+          } else if (input.textContent.trim().length > 0) {
+            addIcon.style.display = 'block';
+          }
+        }
+
+        function createTag(text) {
+          const tag = document.createElement('div');
+          tag.classList.add('excludetag2');
+          tag.setAttribute('data-category', 'exclusion');
+          tag.setAttribute('data-id', `${text}-excludetag21`);
+
+          const tagText = document.createElement('div');
+          tagText.classList.add('excludetag21');
+          tagText.textContent = text;
+
+          const closeIcon = document.createElement('img');
+          closeIcon.classList.add('close-icon');
+          closeIcon.src = './svg/Close.svg';
+          closeIcon.alt = 'Close';
+
+          closeIcon.addEventListener('click', () => {
+            tag.remove();
+            checkMaxTags();
+            updateUI();
+          });
+
+          tag.appendChild(tagText);
+          tag.appendChild(closeIcon);
+          tagsContainer.appendChild(tag);
+          checkMaxTags();
+        }
+
+        input.addEventListener('beforeinput', function(event) {
+          if (input.textContent.length >= MAX_LENGTH && event.inputType !== 'deleteContentBackward') {
+            event.preventDefault();
+          }
+        });
+
+        input.addEventListener('input', function() {
+          if (input.textContent.length > MAX_LENGTH) {
+            input.textContent = input.textContent.substring(0, MAX_LENGTH);
+
+            const range = document.createRange();
+            const sel = window.getSelection();
+            range.selectNodeContents(input);
+            range.collapse(false);
+            sel.removeAllRanges();
+            sel.addRange(range);
+          }
+          updateUI();
+        });
+
+        addIcon.addEventListener('click', function() {
+          const text = input.textContent.trim();
+          if (text.length > 0 && tagsContainer.children.length < MAX_TAGS) {
+            createTag(text);
+            input.textContent = '';
+            updateUI();
+          }
+        });
+
+        input.addEventListener('keydown', function(event) {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            const text = input.textContent.trim();
+            if (text.length > 0 && tagsContainer.children.length < MAX_TAGS) {
+              createTag(text);
+              input.textContent = '';
+              updateUI();
+            }
+          }
+        });
+
+        updateUI();
+      });
+    }
+// ## PLATFORM ##
+// Load selection from cache or initialize empty cache
+const cacheKey = 'platformSelections';
+let platformSelections = JSON.parse(localStorage.getItem(cacheKey)) || {};
+
+// Function to render platform options dynamically with fade effect
+function renderPlatformOptions(services) {
+    const platformRow = document.querySelector('.platformoptionsrow1');
+    if (!platformRow) return; // Ensure platformRow exists
+
+    // Fade out effect
+    platformRow.style.opacity = '0';
+
+    setTimeout(() => {
+        platformRow.innerHTML = ''; // Clear previous platform options
+
+        services.forEach(service => {
+            const platformDiv = document.createElement('div');
+            platformDiv.classList.add('platformoptiontag');
+            platformDiv.setAttribute('data-category', 'platform');  // Set platform data-category
+            platformDiv.setAttribute('data-id', service.id);  // Set data-id for platform
+
+            // Mark as active if previously selected
+            if (platformSelections[service.id]) {
+                platformDiv.classList.add('active');
+            }
+
+            // Add platform logo and append to platform row
+            const platformImg = document.createElement('img');
+            platformImg.classList.add('platformlogo');
+            platformImg.src = service.imageSet.lightThemeImage;
+            platformImg.alt = service.name;
+
+            platformDiv.appendChild(platformImg);
+            platformRow.appendChild(platformDiv);
+
+            // Toggle active state and save to platformSelections on click
+            platformDiv.addEventListener('click', () => {
+                platformDiv.classList.toggle('active');
+                const isActive = platformDiv.classList.contains('active');
+
+                platformSelections[service.id] = isActive;
+                localStorage.setItem(cacheKey, JSON.stringify(platformSelections)); // Save to cache
+            });
+        });
+
+        // Fade in effect
+        platformRow.style.opacity = '1';
+    }, 300); // Delay for fade-out before rendering new content
+}
+
+// Fetch platform data based on the country name and set countryCode
+async function fetchPlatformDataAndCountryCode() {
+    const datacountryDiv = document.querySelector('.datacountry');
+    const locationFunctionUrl = 'https://us-central1-double-voice-439307-j8.cloudfunctions.net/getlocation';
+
+    if (datacountryDiv) {
+        try {
+            const locationResponse = await fetch(locationFunctionUrl);
+            const locationData = await locationResponse.json();
+            const countryName = locationData.country || 'United States';
+
+            // Fetch countryCode and platforms from getcountryplatform API using countryName
+            const platformResponse = await fetch('https://us-central1-double-voice-439307-j8.cloudfunctions.net/getcountryplatform', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ countryName })
+            });
+            const platformData = await platformResponse.json();
+            
+            const countryCode = platformData.countryCode.toUpperCase();
+            datacountryDiv.textContent = countryCode;
+            datacountryDiv.setAttribute('data-id', countryCode);
+
+            // Render platform options based on platform data
+            const services = platformData.services || [];
+            renderPlatformOptions(services);
+        } catch (error) {
+            console.error('Error fetching country or platform data:', error);
+            datacountryDiv.textContent = 'No internet - Unable to get your location';
+            datacountryDiv.setAttribute('data-id', 'US');
+        }
+
+        // Allow user to edit the content of the datacountry div when clicked
+        datacountryDiv.addEventListener('click', function() {
+            this.setAttribute('contentEditable', true); // Make the div editable
+            this.focus(); // Focus the div so the user can start editing
+        });
+
+        // Enforce a character limit of 20 characters on the datacountry div
+        datacountryDiv.addEventListener('input', function() {
+            if (this.textContent.length > 20) {
+                this.textContent = this.textContent.substring(0, 20); // Trim to 20 characters
+            }
+        });
+
+        // Update platform options when the user clicks away (blur)
+        datacountryDiv.addEventListener('blur', function() {
+            this.removeAttribute('contentEditable'); // Disable editing when focus is lost
+
+            const countryName = this.textContent.trim();
+            fetchPlatformDataAndCountryCode(countryName); // Fetch and update platform options based on new country
+        });
+    } else {
+        console.error('Element .datacountry not found. Ensure it exists in the DOM.');
+    }
+}
+
+// Run the country and platform data function on load
+document.addEventListener("DOMContentLoaded", fetchPlatformDataAndCountryCode);
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector('.button-frame').addEventListener('click', () => {
+        const elements = document.querySelectorAll('[data-category][data-id]');
+        const jsonData = {
+            showType: "",
+            prompt: "",
+            country: "",
+            platforms: []
+        };
+
+        // Initialize arrays for categories that may have multiple values
+        const relaxTags = [];
+        const sleepTags = [];
+        const captivateTags = [];
+        const exclusions = [];
+        let showType = "";
+        let goal = "";
+        let touch = "";
+
+        const datacountryDiv = document.querySelector('.datacountry');
+        if (datacountryDiv) {
+            jsonData.country = datacountryDiv.getAttribute('data-id').toUpperCase();
+        }
+
+        // Retrieve selected platforms from cached selections
+        platformSelections = JSON.parse(localStorage.getItem(cacheKey)) || {};
+        for (const [platformId, isActive] of Object.entries(platformSelections)) {
+            if (isActive) {
+                jsonData.platforms.push(platformId);
+            }
+        }
+
+        // Loop through elements to populate data
+        elements.forEach(element => {
+            const category = element.getAttribute('data-category');
+            const id = element.getAttribute('data-id');
+            switch (category) {
+                case "showtype": showType = id; break;
+                case "goal": goal = id; break;
+                case "relax.tags": relaxTags.push(id); break;
+                case "sleep.tags": sleepTags.push(id); break;
+                case "captivate.tags": captivateTags.push(id); break;
+                case "touch": touch = id; break;
+                case "exclusion": exclusions.push(id); break;
+                default: break;
+            }
+        });
+
+        // Validation checks before proceeding
+        if (!showType) {
+            document.getElementById("showtype").scrollIntoView({ behavior: "smooth" });
+            alert("Please select 'movie' or 'TV show' to get the right recommendations.");
+            return;
+        }
+
+        if (!goal) {
+            document.getElementById("goal").scrollIntoView({ behavior: "smooth" });
+            alert("Please select one 'experience' to get meaningful recommendations.");
+            return;
+        }
+
+        if (jsonData.platforms.length === 0) {
+            document.getElementById("platform").scrollIntoView({ behavior: "smooth" });
+            alert("Please select at least one streaming platform to watch your future recommendations.");
+            return;
+        }
+
+        // Construct the JSON prompt if validations pass
+        jsonData.showType = showType;
+        const selectedTags = [...relaxTags, ...sleepTags, ...captivateTags].join(", ");
+        const exclusionsList = exclusions.join(", ");
+
+        // Build prompt dynamically based on presence of data
+        let prompt = `A ${showType} that is ideal for ${goal}.`;
+        if (selectedTags) {
+            prompt += ` With a strong focus on ${selectedTags}.`;
+        }
+        if (touch) {
+            prompt += ` Taking into consideration this personal touch: ${touch}.`;
+        }
+        if (exclusionsList) {
+            prompt += ` Make sure it is Excluding ${exclusionsList}.`;
+        }
+        jsonData.prompt = prompt;
+
+        console.log("Constructed JSON payload:", jsonData);
+
+        // Store JSON payload in localStorage and navigate to loading.html
+        localStorage.setItem('requestPayload', JSON.stringify(jsonData));
+        window.location.href = 'loading.html';
+    });
+});
+
+</script>
+</body>
+</html>

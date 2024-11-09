@@ -1,0 +1,405 @@
+.header-results-fastmodetext {
+  	width: 387px;
+  	position: relative;
+  	line-height: 107%;
+  	display: inline-block;
+  	height: 68px;
+  	flex-shrink: 0;
+}
+.header-results-quickmode {
+  	align-self: stretch;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+}
+.header-results-fastmodetext1 {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 14px;
+  	font-weight: 500;
+  	color: #1e1e1e;
+}
+.heading-text {
+  	width: 387px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	gap: 8px;
+  	font-size: 30px;
+  	color: #000;
+}
+.aspect-ratio-keeper-addition {
+  	align-self: stretch;
+  	max-width: 100%;
+  	overflow: hidden;
+  	height: 293.9px;
+  	flex-shrink: 0;
+  	object-fit: contain;
+}
+.aspect-ratio-spacer {
+  	align-self: stretch;
+  	border-radius: 2px;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	background-image: url('Aspect Ratio Spacer.png');
+  	background-size: cover;
+  	background-repeat: no-repeat;
+  	background-position: top;
+  	opacity: 0;
+}
+.image-change-image-here {
+  	width: 360px;
+  	height: 202px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: center;
+  	justify-content: center;
+  	padding: 0px 33px;
+  	box-sizing: border-box;
+  	background-image: url('Image (change image here).png');
+  	background-size: cover;
+  	background-repeat: no-repeat;
+  	background-position: top;
+}
+.container-image {
+  	width: 393px;
+  	border-radius: 10.3px 10.3px 0px 0px;
+  	background-color: #f8f8f8;
+  	height: 285px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: center;
+  	justify-content: center;
+  	padding: 0px 32px;
+  	box-sizing: border-box;
+}
+.card-image {
+  	width: 393px;
+  	height: 287px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: center;
+  	justify-content: center;
+}
+.result-title {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 24px;
+  	line-height: 116%;
+  	font-weight: 600;
+}
+.why-this-fits {
+  	width: 338px;
+  	position: relative;
+  	display: flex;
+  	background: linear-gradient(270deg, #5822b4, #386bf6), #1e1e1e;
+  	-webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+  	align-items: center;
+  	flex-shrink: 0;
+}
+.title {
+  	display: flex;
+  	flex-direction: row;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+}
+.because-you-had {
+  	width: 338px;
+  	position: relative;
+  	font-weight: 500;
+  	display: flex;
+  	align-items: center;
+  	flex-shrink: 0;
+}
+.container-description {
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+}
+.generatebuttontext {
+  	position: relative;
+  	font-weight: 600;
+}
+.cta-label-icon {
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: flex-start;
+}
+.secondary-cta {
+  	flex: 1;
+  	border-radius: 5px;
+  	border: 1px solid #000;
+  	box-sizing: border-box;
+  	height: 48px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: center;
+}
+.primary-cta {
+  	flex: 1;
+  	border-radius: 5px;
+  	background-color: #000;
+  	height: 48px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: center;
+  	color: #fff;
+}
+.cta-container {
+  	width: 338px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: flex-start;
+  	gap: 17px;
+  	text-align: center;
+  	color: #000;
+}
+.navigation-chevron-down {
+  	width: 18px;
+  	position: relative;
+  	height: 18px;
+  	object-fit: contain;
+}
+.available-on-2 {
+  	position: relative;
+  	letter-spacing: 1px;
+  	line-height: 16px;
+  	text-transform: uppercase;
+  	font-weight: 600;
+}
+.accordion-to-expand-platforms {
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: flex-start;
+  	gap: 4px;
+  	font-size: 12px;
+}
+.result-card-content {
+  	width: 393px;
+  	border-radius: 0px 0px 9px 9px;
+  	background-color: #fff;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	padding: 24px;
+  	box-sizing: border-box;
+  	gap: 16px;
+}
+.resultcard1 {
+  	position: relative;
+  	top: 0px;
+  	left: 0px;
+  	width: 393px;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+}
+.navigation-close {
+  	width: 24px;
+  	position: relative;
+  	height: 24px;
+  	object-fit: cover;
+}
+.deletearea {
+  	position: absolute;
+  	top: 11px;
+  	left: 16.5px;
+  	width: 360px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: flex-start;
+  	justify-content: flex-end;
+}
+.resultcard {
+  	width: 393px;
+  	position: relative;
+	display: flex;
+	height: 100%;
+}
+.edit-your-searchtitle {
+  	width: 380px;
+  	position: relative;
+  	line-height: 114%;
+  	display: flex;
+  	align-items: flex-end;
+  	height: 46px;
+  	flex-shrink: 0;
+}
+.edit-your-searchdescription {
+  	width: 380px;
+  	position: relative;
+  	font-size: 14px;
+  	line-height: 131%;
+  	font-weight: 500;
+  	color: #1e1e1e;
+  	display: inline-block;
+}
+.container-edit-or-new {
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	justify-content: flex-start;
+  	gap: 8px;
+}
+.aicon-30 {
+  	width: 24px;
+  	position: relative;
+  	height: 24px;
+}
+.cta-label-icon6 {
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: flex-start;
+  	gap: 2px;
+}
+.button {
+  	width: 392px;
+  	border-radius: 7px;
+  	background-color: #1a00ff;
+  	height: 60px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: center;
+  	padding: 0px 16px;
+  	box-sizing: border-box;
+}
+.or {
+  	width: 380px;
+  	position: relative;
+  	font-size: 12px;
+  	line-height: 131%;
+  	font-weight: 500;
+  	color: #6e6e6e;
+  	display: inline-block;
+}
+.button1 {
+  	width: 392px;
+  	border-radius: 7px;
+  	background-color: #1c1c1d;
+  	height: 60px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  	justify-content: center;
+  	padding: 0px 16px;
+  	box-sizing: border-box;
+}
+.cta-container3 {
+  	display: flex;
+  	flex-direction: column;
+  	align-items: center;
+  	justify-content: flex-start;
+  	gap: 14px;
+  	text-align: center;
+  	font-size: 16px;
+  	color: #fff;
+}
+.edit-or-new-search {
+  	display: flex;
+  	flex-direction: column;
+  	align-items: center;
+  	justify-content: flex-start;
+  	padding: 24px 0px 16px;
+  	gap: 32px;
+  	font-size: 20px;
+  	color: #1c1c1d;
+}
+.results-screen {
+    width: 440px;
+    position: relative;
+    background-color: #f0f0f0;
+    height: fit-content; /* Allows the container to expand based on content */
+    overflow: visible; /* Ensures all content is visible */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 90px 24px 86px;
+    box-sizing: border-box;
+    gap: 32px;
+    text-align: left;
+    font-size: 14px;
+    color: #1e1e1e;
+    font-family: Poppins;
+	justify-content: center;
+}
+
+
+/* Make primary-cta, secondary-cta, and navigation-close appear clickable */
+.primary-cta, .secondary-cta, .navigation-close, .button, .button1, .buttonalt {
+    cursor: pointer;
+  }
+  
+
+  .generatebuttontext {
+    position: relative;
+    font-weight: 600;
+}
+.cta-label-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+.buttonalt {
+    width: 100%;
+    position: relative;
+    border-radius: 5px;
+    background-color: #1e1e1e;
+    height: 48px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 16px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    font-family: Poppins;
+}
+
+.container-extra-ctas {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap; /* Optional, allows items to wrap onto multiple lines */
+    width: 100%; /* Adjust width as needed */
+    overflow: hidden;
+    transition: height 0.3s ease; /* Optional smooth expand/collapse */
+  }
+
+  html {
+    height: fit-content;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+	display: flex; /* Enables flexbox on the body */
+
+}
+
+body {
+    height: fit-content;
+	width: 440px;
+    justify-content: center;
+	margin: 0px;
+	display: flex; /* Enables flexbox on the body */
+    justify-content: center; /* Centers content horizontally */
+
+}
+
