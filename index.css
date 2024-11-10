@@ -63,6 +63,7 @@
   	color: #fff;
 	width: 100%;
 	gap: 32px;
+	min-width: min-content;
 }
 .quickmode {
     width: 100%;
