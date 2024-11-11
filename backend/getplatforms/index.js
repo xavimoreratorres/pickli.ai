@@ -100,7 +100,7 @@ exports.getplatforms = async (req, res) => {
     const id = matchingResult.id;
 
     // Extract the w360 image URL
-    const imageUrl = matchingResult.imageSet?.horizontalBackdrop?.w360 || null; // Safely retrieve the image URL
+    const imageUrl = matchingResult.imageSet?.horizontalPoster?.w360 || null; // Safely retrieve the image URL
 
     // Construct the trailer link
     const formattedTitle = titleResult.replace(/\s+/g, '+'); // Replace spaces with "+"
@@ -185,7 +185,7 @@ async function handleFallback(res, fallbackResult, fallbackResults, country, res
     const releaseYearResult = matchingResult.releaseYear || matchingResult.firstAirYear || "Unknown";
 
     const id = matchingResult.id;
-    const imageUrl = matchingResult.imageSet?.horizontalBackdrop?.w360 || null;
+    const imageUrl = matchingResult.imageSet?.horizontalPoster?.w360 || null;
     const formattedTitle = titleResult.replace(/\s+/g, '+');
     const trailerLink = `https://www.youtube.com/results?search_query=${formattedTitle}+${releaseYearResult}+${showType}+trailer`;
 
