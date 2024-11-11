@@ -97,7 +97,7 @@ async function getPlatformRecommendation(title, country, releaseYear, showType) 
   }
 }
 
-async function getMultipleRecommendationsWithPlatformCheck(basePrompt, desiredPlatforms, country, excludedMovies = [], validMovies = [], fallbackMovies = [], processedMovies = [], tryCount = 0, temperature = 1) {
+async function getMultipleRecommendationsWithPlatformCheck(basePrompt, desiredPlatforms, country, excludedMovies = [], validMovies = [], fallbackMovies = [], processedMovies = [], tryCount = 0, temperature = 1, showType) {
   console.log(`Starting retry #${tryCount + 1} with temperature ${temperature}`);
 
   const genAI = new GoogleGenerativeAI(process.env['gemini-api']);
@@ -134,7 +134,7 @@ async function getMultipleRecommendationsWithPlatformCheck(basePrompt, desiredPl
   let recommendedMovies = parseGeminiResponse(result);
   if (!recommendedMovies) {
     console.warn(`Gemini returned an invalid response. Retrying...`);
-    return await getMultipleRecommendationsWithPlatformCheck(basePrompt, desiredPlatforms, country, excludedMovies, validMovies, fallbackMovies, processedMovies, tryCount + 1);
+    return await getMultipleRecommendationsWithPlatformCheck(basePrompt, desiredPlatforms, country, excludedMovies, validMovies, fallbackMovies, processedMovies, tryCount + 1, temperature, showType);
   }
 
   console.log(`Gemini provided ${recommendedMovies.length} recommendations.`);
@@ -144,8 +144,8 @@ async function getMultipleRecommendationsWithPlatformCheck(basePrompt, desiredPl
   console.log(`Filtered to ${uniqueMovies.length} unique movies after removing duplicates: [${uniqueMovies.map(m => m.title).join(", ")}]`);
 
   const platformRequests = uniqueMovies.map(({ title, year }) => 
-    getPlatformRecommendation(title, country, parseInt(year), 'movie').catch(error => {
-      console.error(`Error with getPlatformRecommendation for movie '${title}': ${error.message}`);
+    getPlatformRecommendation(title, country, parseInt(year), showType).catch(error => {
+      console.error(`Error with getPlatformRecommendation for '${title}': ${error.message}`);
       return null;
     })
   );
@@ -210,7 +210,7 @@ async function getMultipleRecommendationsWithPlatformCheck(basePrompt, desiredPl
 
   if (validMovies.length < MOVIES_TO_RETURN && tryCount + 1 < MAX_RETRIES) {
     console.log(`Proceeding to retry #${tryCount + 2} as not enough movies were found.`);
-    return await getMultipleRecommendationsWithPlatformCheck(basePrompt, desiredPlatforms, country, excludedMovies, validMovies, fallbackMovies, processedMovies, tryCount + 1);
+    return await getMultipleRecommendationsWithPlatformCheck(basePrompt, desiredPlatforms, country, excludedMovies, validMovies, fallbackMovies, processedMovies, tryCount + 1, temperature, showType);
   }
 
   // Final check after all retries
@@ -254,11 +254,12 @@ functions.http('geminirecs', async (req, res) => {
     const userPlatforms = req.body.platforms;
     const country = req.body.country;
     const temperature = parseFloat(req.body.temperature) || 1;
+    const showType = req.body.showType || 'movie'; // Default to 'movie' if not provided in the request
 
     if (!country) return res.status(400).json({ error: "Missing required 'country' parameter." });
 
     const normalizedPlatforms = validateAndNormalizePlatforms(userPlatforms);
-    const result = await getMultipleRecommendationsWithPlatformCheck(basePrompt, normalizedPlatforms, country, [], [], [], [], 0, temperature);
+    const result = await getMultipleRecommendationsWithPlatformCheck(basePrompt, normalizedPlatforms, country, [], [], [], [], 0, temperature, showType);
     res.status(200).json(result);
   } catch (error) {
     console.error('Error processing request:', error);
