@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "@google-cloud/functions-framework": "^3.0.0",
-    "@google/generative-ai": "^0.21.0",
-    "axios": "^1.7.7",
-    "express": "^4.21.1"
-  }
-}
